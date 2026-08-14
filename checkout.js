@@ -30,7 +30,7 @@ const CHECKOUT_INFO = {
   postalCode: '700001',
 };
 
-// ---- Helpers ----
+// ---- Helpers -------
 function ensureDir(dir) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
@@ -41,7 +41,7 @@ async function screenshot(page, name) {
   console.log(`  📸 Screenshot saved: ${filePath}`);
 }
 
-// ---- Main flow ----
+// ---- Main flow -------
 (async () => {
   ensureDir(SCREENSHOT_DIR);
   ensureDir(OUTPUT_DIR);
