@@ -57,6 +57,7 @@ async function screenshot(page, name) {
     await screenshot(page, '01-login-page');
 
     
+    
     // 2. Log in
     console.log('Step 2: Logging in...');
     await page.fill('#user-name', CREDENTIALS.username);
