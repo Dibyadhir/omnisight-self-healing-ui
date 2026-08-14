@@ -9,3 +9,6 @@ class AnalyzeRequest(BaseModel):
 class AnalyzeResponse(BaseModel):
     status: str
     message: str
+    screenshot_received: bool
+    dom_received: bool
+    
