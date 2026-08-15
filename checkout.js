@@ -41,7 +41,11 @@ async function screenshot(page, name) {
   console.log(`  📸 Screenshot saved: ${filePath}`);
 }
 
+<<<<<<< Updated upstream
 // ---- Main flow -------
+=======
+// ---- Main flow --------
+>>>>>>> Stashed changes
 (async () => {
   ensureDir(SCREENSHOT_DIR);
   ensureDir(OUTPUT_DIR);
