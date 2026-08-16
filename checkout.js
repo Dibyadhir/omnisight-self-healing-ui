@@ -30,7 +30,7 @@ const CHECKOUT_INFO = {
   postalCode: '700001',
 };
 
-// ---- Helpers -------
+// ---- Helpers ----
 function ensureDir(dir) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
@@ -38,14 +38,10 @@ function ensureDir(dir) {
 async function screenshot(page, name) {
   const filePath = path.join(SCREENSHOT_DIR, `${name}.png`);
   await page.screenshot({ path: filePath, fullPage: true });
-  console.log(`  📸 Screenshot saved: ${filePath}`);
+  console.log(`  Screenshot saved: ${filePath}`);
 }
 
-<<<<<<< Updated upstream
-// ---- Main flow -------
-=======
-// ---- Main flow --------
->>>>>>> Stashed changes
+// ---- Main flow ----
 (async () => {
   ensureDir(SCREENSHOT_DIR);
   ensureDir(OUTPUT_DIR);
@@ -60,7 +56,6 @@ async function screenshot(page, name) {
     await page.goto(BASE_URL);
     await screenshot(page, '01-login-page');
 
-    
     // 2. Log in
     console.log('Step 2: Logging in...');
     await page.fill('#user-name', CREDENTIALS.username);
@@ -82,7 +77,7 @@ async function screenshot(page, name) {
       path.join(OUTPUT_DIR, 'products.json'),
       JSON.stringify(products, null, 2)
     );
-    console.log(`  ✅ Extracted ${products.length} products -> output/products.json`);
+    console.log(`  Extracted ${products.length} products -> output/products.json`);
 
     // 4. Add first two products to cart
     console.log('Step 4: Adding products to cart...');
@@ -109,7 +104,7 @@ async function screenshot(page, name) {
       path.join(OUTPUT_DIR, 'cart.json'),
       JSON.stringify(cartItems, null, 2)
     );
-    console.log(`  ✅ Extracted cart contents -> output/cart.json`);
+    console.log(`  Extracted cart contents -> output/cart.json`);
 
     // 6. Begin checkout
     console.log('Step 6: Starting checkout...');
@@ -130,7 +125,7 @@ async function screenshot(page, name) {
     console.log('Step 8: Extracting order summary...');
     const summary = await page.$eval('.summary_info', (el) => el.innerText);
     fs.writeFileSync(path.join(OUTPUT_DIR, 'order-summary.txt'), summary);
-    console.log('  ✅ Order summary saved -> output/order-summary.txt');
+    console.log('  Order summary saved -> output/order-summary.txt');
 
     // 9. Finish checkout
     console.log('Step 9: Completing checkout...');
@@ -141,11 +136,11 @@ async function screenshot(page, name) {
     const confirmationText = await page.$eval('.complete-header', (el) =>
       el.textContent.trim()
     );
-    console.log(`  ✅ Checkout complete: "${confirmationText}"`);
+    console.log(`  Checkout complete: "${confirmationText}"`);
 
-    console.log('\n🎉 Full checkout flow completed successfully!');
+    console.log('\nFull checkout flow completed successfully!');
   } catch (err) {
-    console.error('❌ Error during automation:', err);
+    console.error('Error during automation:', err);
     await screenshot(page, 'error-state');
     process.exitCode = 1;
   } finally {
