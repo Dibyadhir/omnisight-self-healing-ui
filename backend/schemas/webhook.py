@@ -1,9 +1,10 @@
+from typing import Literal
 from pydantic import BaseModel
 
 
 class WebhookRequest(BaseModel):
     event: str
-    status: str
+    status: Literal["success", "failed"]
     build_id: str
 
 
