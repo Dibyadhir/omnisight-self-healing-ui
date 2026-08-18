@@ -15,9 +15,10 @@ def analyze(request: AnalyzeRequest):
 
     return AnalyzeResponse(
         status="success",
-        message="UI analysis completed",
+        message="VLM analysis completed",
         screenshot_received=result["screenshot_received"],
-        dom_received=result["dom_received"]
+        dom_received=result["dom_received"],
+        analysis=result["analysis"]
     )
 
    

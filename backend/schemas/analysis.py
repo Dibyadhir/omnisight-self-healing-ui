@@ -17,3 +17,4 @@ class AnalyzeResponse(BaseModel):
     message: str
     screenshot_received: bool
     dom_received: bool
+    analysis: str
