@@ -49,7 +49,6 @@ def health_check():
     """Simple check to confirm the server is alive."""
     return {"status": "ok"}
 
-
 @app.post("/webhook/ci")
 def receive_ci_event(event: CIBuildEvent):
     """
@@ -68,7 +67,6 @@ def receive_ci_event(event: CIBuildEvent):
         "staging_url": event.staging_url,
     }
     received_events.append(record)
-
     print(f"[webhook] Received build event: {record}")
 
     # This is the hook point for Week 3/4: if status == "success",
