@@ -1,0 +1,31 @@
+Based on the screenshot and DOM analysis, there are **two visual styling bugs** caused by overriding CSS rules embedded in the page `<head>`.
+
+---
+
+### Issue 1: Invisible "Finish" Button
+
+1. **Description:** The "Finish" button next to the "Cancel" button is completely invisible on the page.
+2. **HTML Element:** `<button id="finish" name="finish" class="btn btn_action btn_medium cart_button" data-test="finish">Finish</button>`
+3. **Bug Type:** **Broken styling bug**. The button exists in the DOM HTML, but CSS forces white text on a white background with no border (`color: #ffffff !important; background-color: #ffffff !important; border: none !important;`), rendering it visually invisible.
+4. **Actionable Fix:** Remove the custom `#finish` style override in the inline `<style>` tag, or reset `#finish` CSS properties to restore visibility:
+   ```css
+   #finish {
+     color: #132322 !important;
+     background-color: #e2e8f0 !important; /* or default action button color */
+     border: 1px solid #132322 !important;
+   }
+   ```
+
+---
+
+### Issue 2: Hidden Grand Total ("Total: $32.39")
+
+1. **Description:** The total amount ("Total: $32.39") is not visible under the "Price Total" section (only "Item total" and "Tax" are displayed).
+2. **HTML Element:** `<div class="summary_total_label" data-test="total-label">Total: $32.39</div>`
+3. **Bug Type:** **Broken styling bug**. The total element exists in the markup, but custom CSS applies `margin-left: -600px !important;`, pushing the text off-screen to the left.
+4. **Actionable Fix:** Remove `margin-left: -600px !important;` from `.summary_total_label` in the stylesheet:
+   ```css
+   .summary_total_label {
+     margin-left: 0 !important;
+   }
+   ```

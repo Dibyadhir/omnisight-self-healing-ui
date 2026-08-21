@@ -26,13 +26,22 @@ const CREDENTIALS = {
   password: 'secret_sauce',
 };
 const SCREENSHOT_DIR = path.join(__dirname, 'screenshots');
+const DOM_DIR = path.join(__dirname, 'dom_snapshots');
 
 function ensureDir(dir) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
 
+async function saveDom(page, name) {
+  const filePath = path.join(DOM_DIR, `${name}.html`);
+  const html = await page.content();
+  fs.writeFileSync(filePath, html, 'utf-8');
+  console.log(`  DOM snapshot saved: ${filePath}`);
+}
+
 (async () => {
   ensureDir(SCREENSHOT_DIR);
+  ensureDir(DOM_DIR);
 
   const browser = await chromium.launch({ headless: true });
   // Mobile viewport - matches the kind of bug OmniSight is designed to catch
@@ -59,12 +68,13 @@ function ensureDir(dir) {
     await page.click('#continue');
     await page.waitForSelector('.summary_info');
 
-    // --- Capture the CLEAN "before" screenshot for comparison ---
-    console.log('Capturing clean baseline screenshot...');
+    // --- Capture the CLEAN "before" screenshot + DOM for comparison ---
+    console.log('Capturing clean baseline screenshot + DOM...');
     await page.screenshot({
       path: path.join(SCREENSHOT_DIR, 'checkout-overview-CLEAN.png'),
       fullPage: true,
     });
+    await saveDom(page, 'checkout-overview-CLEAN');
 
     // --- Inject deliberate CSS bugs ---
     console.log('Injecting deliberate CSS bugs...');
@@ -87,16 +97,19 @@ function ensureDir(dir) {
     // Give the browser a moment to apply styles before screenshotting
     await page.waitForTimeout(300);
 
-    // --- Capture the BROKEN "after" screenshot ---
-    console.log('Capturing bugged screenshot...');
+    // --- Capture the BROKEN "after" screenshot + DOM ---
+    console.log('Capturing bugged screenshot + DOM...');
     await page.screenshot({
       path: path.join(SCREENSHOT_DIR, 'checkout-overview-BUGGED.png'),
       fullPage: true,
     });
+    await saveDom(page, 'checkout-overview-BUGGED');
 
-    console.log('\nDone. Compare these two files:');
-    console.log('  screenshots/checkout-overview-CLEAN.png   (working page)');
-    console.log('  screenshots/checkout-overview-BUGGED.png  (deliberately broken page)');
+    console.log('\nDone. Compare these files:');
+    console.log('  screenshots/checkout-overview-CLEAN.png    (working page)');
+    console.log('  screenshots/checkout-overview-BUGGED.png   (deliberately broken page)');
+    console.log('  dom_snapshots/checkout-overview-CLEAN.html');
+    console.log('  dom_snapshots/checkout-overview-BUGGED.html');
   } catch (err) {
     console.error('Error:', err);
     process.exitCode = 1;
