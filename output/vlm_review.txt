@@ -1,0 +1,25 @@
+Based on a visual review of the checkout overview page screenshot, here are the issues identified:
+
+---
+
+### 1. Missing Primary Call-to-Action ("Finish" Button)
+* **Issue:** The primary action button to complete the purchase (typically labeled "Finish") is completely missing from the page layout. Only the "Cancel" button is displayed, leaving the user with no path to finalize their order.
+* **Location:** Bottom of the main content area, directly above the footer.
+* **Fix:** Ensure the "Finish" button is rendered alongside or below the "Cancel" button in the template. Use a flex layout for action buttons on mobile viewports:
+  ```css
+  .cart_footer {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+  }
+  .cart_footer .btn {
+    flex: 1;
+  }
+  ```
+
+---
+
+### 2. Missing Grand Total Line
+* **Issue:** Under the **Price Total** section, only "Item total: $29.99" and "Tax: $2.40" are shown. The final grand total line (`Total: $32.39`) is missing.
+* **Location:** Directly beneath "Tax: $2.40" in the Price Total summary area.
+* **Fix:** Render the final total summary row (`<div class="summary_total_label">Total: $32.39</div>`) beneath the tax line before the action buttons.

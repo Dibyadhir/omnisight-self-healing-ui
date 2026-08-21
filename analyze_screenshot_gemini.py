@@ -29,7 +29,7 @@ load_dotenv()
 
 # Point this at one of the screenshots your Week 1 script already generated.
 # Adjust the path/filename to match what's actually in your screenshots folder.
-SCREENSHOT_PATH = "screenshots/06-checkout-overview-page.png"
+SCREENSHOT_PATH = "screenshots/checkout-overview-BUGGED.png"
 
 MODEL = "gemini-3.6-flash"
 
@@ -87,7 +87,7 @@ def main():
         ],
         config=types.GenerateContentConfig(
             system_instruction=SYSTEM_PROMPT,
-            max_output_tokens=800,
+            max_output_tokens=2048,
         ),
     )
 
