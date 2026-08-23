@@ -15,6 +15,8 @@ Run with:
     python analyze_screenshot_gemini.py
 """
 
+
+
 import os
 from dotenv import load_dotenv
 from google import genai

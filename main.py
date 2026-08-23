@@ -44,6 +44,8 @@ class CIBuildEvent(BaseModel):
 # Routes
 # ---------------------------------------------------------------------------
 
+
+
 @app.get("/health")
 def health_check():
     """Simple check to confirm the server is alive."""
