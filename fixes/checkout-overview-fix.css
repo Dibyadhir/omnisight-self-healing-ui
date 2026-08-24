@@ -1,0 +1,12 @@
+/* Auto-generated fix by OmniSight */
+
+/* Reveal the hidden Finish button with contrasting background and text colors */
+#finish {
+  background-color: #e2231a !important;
+  color: #ffffff !important;
+}
+
+/* Reset horizontal margin to bring the Total label back into view */
+.summary_total_label {
+  margin-left: 0 !important;
+}
