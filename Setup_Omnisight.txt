@@ -1,0 +1,55 @@
+# Clone the project
+git clone https://github.com/Dibyadhir/omnisight-self-healing-ui.git
+cd omnisight-self-healing-ui
+
+# Create a Python virtual environment
+python -m venv venv
+venv\Scripts\activate
+
+# install the main packages
+pip install fastapi uvicorn playwright python-dotenv requests
+
+# Then install Playwright's browser
+playwright install
+
+#Configure your Gemini API key
+# keep it in a .env file rather than directly inside Python code.
+GEMINI_API_KEY=your_api_key_here
+
+# add in the python file
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+api_key = os.getenv("GEMINI_API_KEY")
+
+# Don't commit .env to GitHub
+# Add this to .gitignore
+.env
+venv/
+__pycache__/
+
+# Start your FastAPI server is main.py
+uvicorn main:app --reload
+
+# You'll get something similar to:
+Uvicorn running on http://127.0.0.1:8000
+# open the url
+# You'll see the FastAPI Swagger UI.
+
+# Run the Playwright automation
+python playwright_test.py
+
+# Your project will generate the screenshorts
+### Run the VLM analysis
+# Install the Gemini SDK
+pip install google-genai python-dotenv
+
+# Add Gemeni key in .env
+GEMINI_API_KEY=your_gemini_api_key
+
+# Run the vlm_analysis
+python vlm_analysis.py
+
+# 
