@@ -28,9 +28,9 @@ load_dotenv()
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
-
 # Point this at one of the screenshots your Week 1 script already generated.
 # Adjust the path/filename to match what's actually in your screenshots folder.
+
 SCREENSHOT_PATH = "screenshots/checkout-overview-BUGGED.png"
 
 MODEL = "gemini-3.6-flash"
@@ -53,10 +53,6 @@ If you find an issue, describe:
 If the page looks correct with no visual bugs, say so clearly - do not
 invent problems that aren't there."""
 
-
-# ---------------------------------------------------------------------------
-# Main
-# ---------------------------------------------------------------------------
 
 def main():
     api_key = os.environ.get("GEMINI_API_KEY")
