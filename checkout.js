@@ -23,6 +23,8 @@ const CREDENTIALS = {
 const SCREENSHOT_DIR = path.join(__dirname, 'screenshots');
 const OUTPUT_DIR = path.join(__dirname, 'output');
 
+
+
 // Checkout form details (dummy data)
 const CHECKOUT_INFO = {
   firstName: 'Dibya',
