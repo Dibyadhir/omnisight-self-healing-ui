@@ -4,12 +4,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        moss: {
-          50: '#f2f5f1', 100: '#e1e8dd', 200: '#c4d3bc',
-          400: '#7d9c6c', 700: '#3b5330', 800: '#2c4a3e',
-        },
-        clay: { 500: '#b06f2c', 600: '#93591f' },
-        sand: { 50: '#f9f7f2' },
+        ridge: { 50: '#eef1ec', 200: '#c3cec2', 700: '#2c4436', 800: '#21362b', 900: '#182720' },
+        moss: { 400: '#7d9878', 600: '#4a6449', 700: '#3f5b41' },
+        parchment: { 50: '#faf8f1', 100: '#efead9', 200: '#e3dcc4' },
+        blaze: { amber: '#c98a2b', rust: '#a23e2b' },
+      },
+      fontFamily: {
+        display: ['"Fraunces"', 'serif'],
+        body: ['"Inter"', 'sans-serif'],
+        stamp: ['"JetBrains Mono"', 'monospace'],
       },
     },
   },
