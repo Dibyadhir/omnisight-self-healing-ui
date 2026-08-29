@@ -13,32 +13,36 @@ def analyze_with_vlm(
     Analyze UI screenshot and DOM using local LLaVA VLM through Ollama.
     """
 
+    # Keep DOM small so LLaVA has enough context for the screenshot.
+    dom_text = dom[:2000] if dom else "No DOM provided"
+
     prompt = f"""
-You are an expert UI/UX QA engineer.
+You are a UI/UX QA engineer.
 
-Analyze the provided UI screenshot together with the raw HTML/DOM.
+Analyze the screenshot and the HTML DOM.
 
-Identify:
-1. Visual layout issues
-2. Broken or missing UI elements
-3. Overlapping elements
-4. Alignment or spacing problems
-5. Responsive/mobile viewport issues
-6. Differences between the screenshot and DOM structure
+Find only clearly visible UI problems.
 
-For every detected issue, provide:
+Focus on:
+- invisible or unreadable elements
+- broken buttons
+- overflow or clipping
+- alignment and spacing
+- responsive/mobile issues
+
+For each issue provide:
 - issue type
 - affected element
 - severity
-- clear description
-- suggested CSS or React fix
+- description
+- CSS fix
 
-If no clear visual issue is detected, say so.
+Do not invent problems.
 
-Raw HTML/DOM:
-{dom if dom else "No DOM provided"}
+DOM:
+{dom_text}
 
-Return a concise and actionable UI QA analysis.
+Return a short actionable UI QA analysis.
 """
 
     payload = {
@@ -50,15 +54,21 @@ Return a concise and actionable UI QA analysis.
                 "images": [screenshot] if screenshot else []
             }
         ],
-        "stream": False
+        "stream": False,
+        "options": {
+            "num_ctx": 4096,
+            "num_predict": 300
+        }
     }
 
     try:
         response = requests.post(
             OLLAMA_URL,
             json=payload,
-            timeout=600
+            timeout=900
         )
+
+        print("OLLAMA STATUS:", response.status_code)
 
         response.raise_for_status()
 
@@ -77,6 +87,14 @@ Return a concise and actionable UI QA analysis.
         return {
             "status": "error",
             "analysis": f"VLM service error: {error}",
+            "screenshot_received": screenshot is not None,
+            "dom_received": dom is not None,
+        }
+
+    except (KeyError, TypeError, ValueError) as error:
+        return {
+            "status": "error",
+            "analysis": f"Invalid VLM response: {error}",
             "screenshot_received": screenshot is not None,
             "dom_received": dom is not None,
         }
