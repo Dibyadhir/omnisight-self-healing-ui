@@ -67,6 +67,7 @@ Return a concise and actionable UI QA analysis.
         analysis = data["message"]["content"]
 
         return {
+            "status": "success",
             "analysis": analysis,
             "screenshot_received": screenshot is not None,
             "dom_received": dom is not None,
@@ -74,6 +75,7 @@ Return a concise and actionable UI QA analysis.
 
     except requests.RequestException as error:
         return {
+            "status": "error",
             "analysis": f"VLM service error: {error}",
             "screenshot_received": screenshot is not None,
             "dom_received": dom is not None,
