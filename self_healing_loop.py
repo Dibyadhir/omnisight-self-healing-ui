@@ -32,7 +32,7 @@ load_dotenv()
 # Configuration
 # ---------------------------------------------------------------------------
 
-BASE_URL = "https://www.saucedemo.com"
+BASE_URL = "http://localhost:5173"
 USERNAME = "standard_user"
 PASSWORD = "secret_sauce"
 

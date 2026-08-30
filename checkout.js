@@ -15,7 +15,7 @@ const fs = require('fs');
 const path = require('path');
 
 // ---- Config ----
-const BASE_URL = 'https://www.saucedemo.com/';
+const BASE_URL = 'http://localhost:5173/';
 const CREDENTIALS = {
   username: 'standard_user',
   password: 'secret_sauce',
@@ -90,7 +90,7 @@ async function screenshot(page, name) {
 
     // 5. Go to cart
     console.log('Step 5: Opening cart...');
-    await page.click('.shopping_cart_link');
+    await page.click('#cart-link');
     await page.waitForSelector('.cart_list');
     await screenshot(page, '04-cart-page');
 
@@ -108,18 +108,9 @@ async function screenshot(page, name) {
     );
     console.log(`  Extracted cart contents -> output/cart.json`);
 
-    // 6. Begin checkout
+    // 6. Begin checkout - goes straight to order summary (TrekKart has no separate shipping-info step)
     console.log('Step 6: Starting checkout...');
     await page.click('#checkout');
-    await page.waitForSelector('#first-name');
-    await screenshot(page, '05-checkout-info-page');
-
-    // 7. Fill checkout form
-    console.log('Step 7: Filling checkout information...');
-    await page.fill('#first-name', CHECKOUT_INFO.firstName);
-    await page.fill('#last-name', CHECKOUT_INFO.lastName);
-    await page.fill('#postal-code', CHECKOUT_INFO.postalCode);
-    await page.click('#continue');
     await page.waitForSelector('.summary_info');
     await screenshot(page, '06-checkout-overview-page');
 
