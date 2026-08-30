@@ -11,38 +11,63 @@ def analyze_with_vlm(
 ) -> dict:
     """
     Analyze UI screenshot and DOM using local LLaVA VLM through Ollama.
+    Returns structured JSON-compatible UI issues.
     """
 
-    # Keep DOM small so LLaVA has enough context for the screenshot.
+    # Limit DOM size to avoid context overflow
     dom_text = dom[:2000] if dom else "No DOM provided"
 
     prompt = f"""
-You are a UI/UX QA engineer.
+You are an expert UI/UX QA engineer.
 
-Analyze the screenshot and the HTML DOM.
+Analyze the provided UI screenshot together with the HTML DOM.
 
-Find only clearly visible UI problems.
+Focus ONLY on clearly visible UI problems.
 
-Focus on:
-- invisible or unreadable elements
-- broken buttons
-- overflow or clipping
-- alignment and spacing
-- responsive/mobile issues
+Look for:
+1. Visual layout issues
+2. Broken or missing UI elements
+3. Overlapping elements
+4. Alignment or spacing problems
+5. Responsive/mobile viewport issues
+6. Overflow or clipping
+7. Invisible or unreadable text
 
-For each issue provide:
-- issue type
-- affected element
+For every detected issue, identify:
+- issue_type
+- affected_element
 - severity
 - description
-- CSS fix
+- css_fix
 
-Do not invent problems.
+IMPORTANT:
+Return ONLY valid JSON.
+Do not write explanations before or after the JSON.
+Do not use Markdown.
+Do not use ```json code fences.
 
-DOM:
+Use EXACTLY this format:
+
+{{
+  "issues": [
+    {{
+      "issue_type": "string",
+      "affected_element": "string",
+      "severity": "low|medium|high",
+      "description": "string",
+      "css_fix": "string"
+    }}
+  ]
+}}
+
+If no clear issue is detected, return:
+
+{{
+  "issues": []
+}}
+
+HTML/DOM:
 {dom_text}
-
-Return a short actionable UI QA analysis.
 """
 
     payload = {
@@ -55,6 +80,7 @@ Return a short actionable UI QA analysis.
             }
         ],
         "stream": False,
+        "format": "json",
         "options": {
             "num_ctx": 4096,
             "num_predict": 300
