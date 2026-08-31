@@ -20,7 +20,7 @@ const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
 
-const BASE_URL = 'https://www.saucedemo.com/';
+BASE_URL = "http://localhost:5173/products"  
 const CREDENTIALS = {
   username: 'standard_user',
   password: 'secret_sauce',
