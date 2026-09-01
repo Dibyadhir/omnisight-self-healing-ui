@@ -120,6 +120,8 @@ async function screenshot(page, name) {
     fs.writeFileSync(path.join(OUTPUT_DIR, 'order-summary.txt'), summary);
     console.log('  Order summary saved -> output/order-summary.txt');
 
+
+    
     // 9. Finish checkout
     console.log('Step 9: Completing checkout...');
     await page.click('#finish');

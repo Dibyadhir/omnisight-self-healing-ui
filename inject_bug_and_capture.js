@@ -11,7 +11,7 @@
  *      background) - a classic low-contrast bug.
  *   2. The order total gets pushed off the visible viewport using a
  *      large negative margin - a classic clipping/overflow bug.
- *
+ 
  * Usage:
  *   node inject_bug_and_capture.js
  */
