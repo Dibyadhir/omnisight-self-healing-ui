@@ -59,6 +59,39 @@ def main():
     print(f"\nFile updated: {file_path}")
     print(f"Commit created: {commit_message}")
 
+    # -----------------------------------------
+    # Step 3: Create Pull Request
+    # -----------------------------------------
+    existing_pr = None
+
+    for pr in repo.get_pulls(
+        state="open",
+        head=f"{repo.owner.login}:{branch_name}",
+        base=repo.default_branch
+    ):
+        existing_pr = pr
+        break
+
+    if existing_pr:
+        print("\nPull Request already exists!")
+        print("PR Number:", existing_pr.number)
+        print("PR URL:", existing_pr.html_url)
+
+    else:
+        pr = repo.create_pull(
+            title="OmniSight automated fix test",
+            body=(
+                "This Pull Request was created automatically "
+                "by OmniSight using PyGithub."
+            ),
+            head=branch_name,
+            base=repo.default_branch
+        )
+
+        print("\nPull Request created successfully!")
+        print("PR Number:", pr.number)
+        print("PR URL:", pr.html_url)
+
 
 if __name__ == "__main__":
     main()
