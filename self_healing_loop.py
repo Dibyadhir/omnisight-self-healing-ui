@@ -28,9 +28,6 @@ from google.genai import types
 
 load_dotenv()
 
-# ---------------------------------------------------------------------------
-# Configuration
-# ---------------------------------------------------------------------------
 
 BASE_URL = "http://localhost:5173"
 USERNAME = "standard_user"
@@ -81,10 +78,6 @@ or
 
 FAIL: <short explanation of what is still broken>"""
 
-
-# ---------------------------------------------------------------------------
-# Gemini helpers
-# ---------------------------------------------------------------------------
 
 def get_gemini_client():
     api_key = os.environ.get("GEMINI_API_KEY")
