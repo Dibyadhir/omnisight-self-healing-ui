@@ -10,7 +10,6 @@ const PRODUCTS = [
 
 const VALID_USER = { username: 'standard_user', password: 'secret_sauce' }
 
-// Steps a shopper walks through, in order - drives the trail-blaze indicator
 const TRAIL_STEPS = [
   { key: 'products', label: 'Gear' },
   { key: 'cart', label: 'Cart' },
@@ -18,9 +17,6 @@ const TRAIL_STEPS = [
   { key: 'complete', label: 'Done' },
 ]
 
-// A single painted trail-blaze mark. Real trail blazes are rectangular paint
-// marks on trees that hikers follow to stay on route - here they mark
-// progress through checkout the same way.
 function Blaze({ state }) {
   // state: 'done' | 'current' | 'upcoming'
   const styles = {
@@ -231,6 +227,7 @@ export default function App() {
             </div>
           </div>
         )}
+
 
         {/* ---- CART ---- */}
         {step === 'cart' && (
