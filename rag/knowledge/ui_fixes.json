@@ -1,0 +1,62 @@
+[
+  {
+    "problem": "Navbar is not responsive",
+    "solution": "Use responsive navbar classes and media queries for smaller screen sizes.",
+    "fix_type": "html_css",
+    "example": "@media (max-width: 768px) { .navbar-nav { flex-direction: column; } }"
+  },
+  {
+    "problem": "Elements are overlapping",
+    "solution": "Adjust margin, padding, position, flexbox or grid properties to prevent elements from overlapping.",
+    "fix_type": "css",
+    "example": ".element { margin: 20px; position: relative; }"
+  },
+  {
+    "problem": "Hero section text overlaps with image",
+    "solution": "Use flexbox or grid layout and add appropriate gap, margin or padding between text and image.",
+    "fix_type": "css",
+    "example": ".hero { display: flex; gap: 30px; align-items: center; }"
+  },
+  {
+    "problem": "Image is broken",
+    "solution": "Check the image source path and verify that the referenced image file exists.",
+    "fix_type": "html",
+    "example": "<img src='/static/images/hero.jpg' alt='Hero image'>"
+  },
+  {
+    "problem": "Cards are not responsive",
+    "solution": "Use CSS grid or flexbox with responsive columns so cards adapt to different screen sizes.",
+    "fix_type": "css",
+    "example": ".cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }"
+  },
+  {
+    "problem": "Button text is not visible",
+    "solution": "Ensure sufficient contrast between button text and background and verify the text color is not the same as the background.",
+    "fix_type": "css",
+    "example": ".button { color: white; background-color: #222; }"
+  },
+  {
+    "problem": "Content is pushed off screen",
+    "solution": "Remove excessive fixed margins or widths and use responsive sizing.",
+    "fix_type": "css",
+    "example": ".content { max-width: 100%; margin: 0 auto; }"
+  },
+  {
+    "problem": "Footer is not aligned correctly",
+    "solution": "Use text alignment, flexbox or appropriate spacing to correctly align footer content.",
+    "fix_type": "css",
+    "example": "footer { text-align: center; }"
+  },
+  {
+    "problem": "Large horizontal overflow on mobile",
+    "solution": "Prevent elements from exceeding the viewport width and use responsive widths.",
+    "fix_type": "css",
+    "example": "body { overflow-x: hidden; } img { max-width: 100%; height: auto; }"
+  },
+  {
+    "problem": "Text is too close to other elements",
+    "solution": "Add appropriate margin or padding to create sufficient visual spacing.",
+    "fix_type": "css",
+    "example": ".section-title { margin-bottom: 24px; }"
+  }
+]
