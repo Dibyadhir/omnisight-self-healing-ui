@@ -4,18 +4,13 @@ OmniSight - Week 2: Multimodal Prompting (Gemini version)
 Sends a screenshot (captured by Week 1's automation) to Google's Gemini
 model and asks it to act as an autonomous QA engineer, spotting visual
 anomalies like overlapping text, clipping elements, or bad contrast.
-
 Requirements:
     pip install google-genai
-
 Environment variable required:
     GEMINI_API_KEY  (set this before running - see setup instructions)
-
 Run with:
     python analyze_screenshot_gemini.py
 """
-
-
 
 import os
 from dotenv import load_dotenv
@@ -25,14 +20,7 @@ from google.genai import types
 # Loads variables from a .env file in the same folder into the environment
 load_dotenv()
 
-# ---------------------------------------------------------------------------
-# Configuration
-# ---------------------------------------------------------------------------
-# Point this at one of the screenshots your Week 1 script already generated.
-# Adjust the path/filename to match what's actually in your screenshots folder.
-
 SCREENSHOT_PATH = "screenshots/checkout-overview-BUGGED.png"
-
 MODEL = "gemini-3.6-flash"
 
 SYSTEM_PROMPT = """You are an autonomous QA engineer reviewing a screenshot of a
@@ -52,7 +40,6 @@ If you find an issue, describe:
 
 If the page looks correct with no visual bugs, say so clearly - do not
 invent problems that aren't there."""
-
 
 def main():
     api_key = os.environ.get("GEMINI_API_KEY")
@@ -96,12 +83,10 @@ def main():
     print("=" * 60)
     print(result_text)
 
-    # Save the result for later steps (Week 3 will parse this for code fixes)
     os.makedirs("output", exist_ok=True)
     with open("output/vlm_review.txt", "w", encoding="utf-8") as f:
         f.write(result_text)
     print("\nSaved full result to output/vlm_review.txt")
-
 
 if __name__ == "__main__":
     main()
