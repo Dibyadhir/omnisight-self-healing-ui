@@ -35,6 +35,8 @@ Look for:
 
 IMPORTANT: Ignore missing/broken images or image placeholders because product images are not implemented yet. Do not report them as UI issues.
 
+Return at most ONE clearly visible UI issue.
+Ignore minor or uncertain issues.
 
 For every detected issue, identify:
 - issue_type
@@ -86,7 +88,7 @@ HTML/DOM:
         "format": "json",
         "options": {
             "num_ctx": 4096,
-            "num_predict": 300
+            "num_predict": 600
         }
     }
 
