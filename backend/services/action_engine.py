@@ -1,6 +1,8 @@
 import re
 from pathlib import Path
 
+from backend.services.css_validator import validate_css
+
 
 def extract_code_blocks(vlm_response: str) -> list[dict]:
     """
@@ -35,14 +37,26 @@ def apply_css_fix(
     backup: bool = True
 ) -> dict:
     """
-    Safely apply AI-generated CSS code to a CSS file.
+    Apply validated CSS code to a CSS file.
     """
 
-    if not css_code or not css_code.strip():
+    # -----------------------------
+    # STEP 1: Validate CSS
+    # -----------------------------
+
+    validation = validate_css(css_code)
+
+    if not validation["valid"]:
         return {
             "success": False,
-            "message": "No CSS code provided"
+            "message": f"CSS validation failed: {validation['message']}"
         }
+
+    clean_css = validation["css"]
+
+    # -----------------------------
+    # STEP 2: Check CSS file
+    # -----------------------------
 
     css_path = Path(css_file)
 
@@ -53,29 +67,41 @@ def apply_css_fix(
         }
 
     try:
-        # Create backup before modifying the file
+
+        # -----------------------------
+        # STEP 3: Create backup
+        # -----------------------------
+
         if backup:
+
             backup_path = css_path.with_suffix(".css.backup")
 
             if not backup_path.exists():
+
                 backup_path.write_text(
                     css_path.read_text(encoding="utf-8"),
                     encoding="utf-8"
                 )
 
-        # Read existing CSS
+        # -----------------------------
+        # STEP 4: Read existing CSS
+        # -----------------------------
+
         existing_css = css_path.read_text(
             encoding="utf-8"
         )
 
-        # Add AI-generated fix
+        # -----------------------------
+        # STEP 5: Apply CSS
+        # -----------------------------
+
         updated_css = (
             existing_css
             + "\n\n"
             + "/* ==========================\n"
               "   OmniSight AI Generated Fix\n"
               "========================== */\n\n"
-            + css_code.strip()
+            + clean_css
             + "\n"
         )
 
@@ -86,12 +112,14 @@ def apply_css_fix(
 
         return {
             "success": True,
-            "message": "CSS fix applied successfully",
-            "file": str(css_path)
+            "message": "Validated CSS fix applied successfully",
+            "file": str(css_path),
+            "validation": validation
         }
 
-    except Exception as e:
+    except Exception as error:
+
         return {
             "success": False,
-            "message": str(e)
+            "message": str(error)
         }
