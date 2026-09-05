@@ -33,6 +33,9 @@ Look for:
 6. Overflow or clipping
 7. Invisible or unreadable text
 
+IMPORTANT: Ignore missing/broken images or image placeholders because product images are not implemented yet. Do not report them as UI issues.
+
+
 For every detected issue, identify:
 - issue_type
 - affected_element
