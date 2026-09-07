@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import { useParams, Link, useNavigate } from 'react-router-dom'
-import Header from './components/header'
-import { useCart } from './context/cartcontext'
+import { useState } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import Header from "../components/Header";
+import { useCart } from "../context/CartContext";
 
 export default function ProductDetailPage() {
   const { slug } = useParams()

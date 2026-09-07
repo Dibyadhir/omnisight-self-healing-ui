@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import Header from './components/header'
-import ProductCard from './components/productcard'
-import { useCart } from './context/cartcontext'
+import Header from "../components/Header";
+import ProductCard from "../components/ProductCard";
+import { TrailIndicator } from "../components/TrailBlaze";
 
 export default function HomePage() {
   const { PRODUCTS } = useCart()

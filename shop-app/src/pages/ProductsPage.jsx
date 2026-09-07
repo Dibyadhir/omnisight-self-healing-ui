@@ -1,7 +1,6 @@
-import Header from './components/header'
-import ProductCard from '../components/productcard '
-import { TrailIndicator } from '../components/TrailBlaze'
-import { useCart } from './context/cartcontext'
+import Header from "../components/Header";
+import ProductCard from "../components/ProductCard";
+import { TrailIndicator } from "../components/TrailBlaze";
 import { useLocation } from 'react-router-dom'
 
 export default function ProductsPage() {
