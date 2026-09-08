@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useCart } from './context/cartcontext'
+import { useCart } from '../context/CartContext'
 
 export default function ProductCard({ product }) {
   const { addToCart, items } = useCart()
@@ -8,9 +8,11 @@ export default function ProductCard({ product }) {
   return (
     <div className="inventory_item bg-parchment-50 border border-ridge-800/10 rounded-lg p-4 flex flex-col">
       <Link to={`/products/${product.slug}`} className="block mb-3">
-        <div className="aspect-square bg-ridge-50 rounded-md flex items-center justify-center text-ridge-800/30 text-xs font-stamp uppercase tracking-wide">
-          {product.category}
-        </div>
+        <img
+          src={`https://picsum.photos/seed/${product.slug}/400/400`}
+          alt={product.name}
+          className="aspect-square w-full object-cover rounded-md bg-ridge-50"
+        />
       </Link>
       <Link to={`/products/${product.slug}`}>
         <p className="inventory_item_name font-medium text-ridge-800 hover:text-blaze-amber transition-colors">

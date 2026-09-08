@@ -1,12 +1,13 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
-import { CartProvider } from './context/cartcontext'
-import LoginPage from './pages/loginpage'
-import HomePage from './pages/homepage'
-import ProductsPage from './pages/productpage'
-import ProductDetailPage from './pages/productDetailpage'
-import CartPage from './pages/CartPage'
-import CheckoutPage from './pages/CheckoutPage'
-import CheckoutCompletePage from './pages/CheckoutCompletePage'
+import { Routes, Route, Navigate } from "react-router-dom";
+import { CartProvider } from "./context/CartContext";
+import Header from "./components/Header";
+import HomePage from "./pages/HomePage";
+import ProductsPage from "./pages/ProductsPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
+import CartPage from "./pages/CartPage";
+import CheckoutPage from "./pages/CheckoutPage";
+import CheckoutCompletePage from "./pages/CheckoutCompletePage";
+import LoginPage from "./pages/LoginPage";
 
 export default function App() {
   return (

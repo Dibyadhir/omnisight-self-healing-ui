@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Header from "../components/Header";
+import { TrailMark } from '../components/TrailBlaze'
 
 const VALID_USER = { username: 'standard_user', password: 'secret_sauce' }
 

@@ -1,11 +1,9 @@
-import Header from "../components/Header";
-import ProductCard from "../components/ProductCard";
-import { TrailIndicator } from "../components/TrailBlaze";
-import { useLocation } from 'react-router-dom'
+import Header from '../components/Header'
+import ProductCard from '../components/ProductCard'
+import { useCart } from '../context/CartContext'
 
 export default function ProductsPage() {
   const { PRODUCTS } = useCart()
-  const location = useLocation()
 
   return (
     <div className="min-h-screen bg-parchment-100 flex flex-col">

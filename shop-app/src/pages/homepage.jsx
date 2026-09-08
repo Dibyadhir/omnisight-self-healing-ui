@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import Header from "../components/Header";
-import ProductCard from "../components/ProductCard";
-import { TrailIndicator } from "../components/TrailBlaze";
+import Header from '../components/Header'
+import ProductCard from '../components/ProductCard'
+import { useCart } from '../context/CartContext'
 
 export default function HomePage() {
   const { PRODUCTS } = useCart()
@@ -11,7 +11,6 @@ export default function HomePage() {
     <div className="min-h-screen bg-parchment-100">
       <Header />
 
-      {/* Hero */}
       <section className="border-b border-ridge-800/10">
         <div className="max-w-5xl mx-auto px-6 py-16 text-center">
           <p className="font-stamp text-[10px] uppercase tracking-[0.2em] text-blaze-amber mb-3">
@@ -32,9 +31,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Featured products - reuses the same .inventory_list / .inventory_item
-          markup as the full Products page, so existing automation scripts
-          that look for these classes right after login still find them here. */}
       <section className="max-w-5xl mx-auto px-6 py-12">
         <div className="flex items-center justify-between mb-5">
           <h2 className="font-display italic text-2xl font-semibold text-ridge-800">

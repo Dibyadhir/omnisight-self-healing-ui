@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useCart } from './context/cartcontext'
+import { useCart } from "../context/CartContext";
 import { TrailMark } from './TrailBlaze'
 
 export default function Header() {

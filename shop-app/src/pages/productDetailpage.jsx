@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
-import Header from "../components/Header";
-import { useCart } from "../context/CartContext";
+import { useState } from 'react'
+import { useParams, Link, useNavigate } from 'react-router-dom'
+import Header from '../components/Header'
+import { useCart } from '../context/CartContext'
 
 export default function ProductDetailPage() {
   const { slug } = useParams()
@@ -39,9 +39,11 @@ export default function ProductDetailPage() {
         </Link>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-6">
-          <div className="aspect-square bg-ridge-50 rounded-lg flex items-center justify-center text-ridge-800/30 font-stamp uppercase tracking-wide text-sm">
-            {product.category}
-          </div>
+                    <img
+            src={`https://picsum.photos/seed/${product.slug}/600/600`}
+            alt={product.name}
+            className="aspect-square w-full object-cover rounded-lg bg-ridge-50"
+          />
 
           <div>
             <p className="font-stamp text-[10px] uppercase tracking-[0.15em] text-blaze-amber mb-2">
