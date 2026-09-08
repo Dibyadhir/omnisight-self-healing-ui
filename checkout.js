@@ -15,13 +15,15 @@ const fs = require('fs');
 const path = require('path');
 
 // ---- Config ----
-const BASE_URL = 'https://www.saucedemo.com/';
+const BASE_URL = 'http://localhost:5173/';
 const CREDENTIALS = {
   username: 'standard_user',
   password: 'secret_sauce',
 };
 const SCREENSHOT_DIR = path.join(__dirname, 'screenshots');
 const OUTPUT_DIR = path.join(__dirname, 'output');
+
+
 
 // Checkout form details (dummy data)
 const CHECKOUT_INFO = {
@@ -38,7 +40,7 @@ function ensureDir(dir) {
 async function screenshot(page, name) {
   const filePath = path.join(SCREENSHOT_DIR, `${name}.png`);
   await page.screenshot({ path: filePath, fullPage: true });
-  console.log(`  📸 Screenshot saved: ${filePath}`);
+  console.log(`  Screenshot saved: ${filePath}`);
 }
 
 // ---- Main flow ----
@@ -56,8 +58,6 @@ async function screenshot(page, name) {
     await page.goto(BASE_URL);
     await screenshot(page, '01-login-page');
 
-    
-    
     // 2. Log in
     console.log('Step 2: Logging in...');
     await page.fill('#user-name', CREDENTIALS.username);
@@ -79,7 +79,7 @@ async function screenshot(page, name) {
       path.join(OUTPUT_DIR, 'products.json'),
       JSON.stringify(products, null, 2)
     );
-    console.log(`  ✅ Extracted ${products.length} products -> output/products.json`);
+    console.log(`  Extracted ${products.length} products -> output/products.json`);
 
     // 4. Add first two products to cart
     console.log('Step 4: Adding products to cart...');
@@ -90,7 +90,7 @@ async function screenshot(page, name) {
 
     // 5. Go to cart
     console.log('Step 5: Opening cart...');
-    await page.click('.shopping_cart_link');
+    await page.click('#cart-link');
     await page.waitForSelector('.cart_list');
     await screenshot(page, '04-cart-page');
 
@@ -106,20 +106,11 @@ async function screenshot(page, name) {
       path.join(OUTPUT_DIR, 'cart.json'),
       JSON.stringify(cartItems, null, 2)
     );
-    console.log(`  ✅ Extracted cart contents -> output/cart.json`);
+    console.log(`  Extracted cart contents -> output/cart.json`);
 
-    // 6. Begin checkout
+    // 6. Begin checkout - goes straight to order summary (TrekKart has no separate shipping-info step)
     console.log('Step 6: Starting checkout...');
     await page.click('#checkout');
-    await page.waitForSelector('#first-name');
-    await screenshot(page, '05-checkout-info-page');
-
-    // 7. Fill checkout form
-    console.log('Step 7: Filling checkout information...');
-    await page.fill('#first-name', CHECKOUT_INFO.firstName);
-    await page.fill('#last-name', CHECKOUT_INFO.lastName);
-    await page.fill('#postal-code', CHECKOUT_INFO.postalCode);
-    await page.click('#continue');
     await page.waitForSelector('.summary_info');
     await screenshot(page, '06-checkout-overview-page');
 
@@ -127,8 +118,10 @@ async function screenshot(page, name) {
     console.log('Step 8: Extracting order summary...');
     const summary = await page.$eval('.summary_info', (el) => el.innerText);
     fs.writeFileSync(path.join(OUTPUT_DIR, 'order-summary.txt'), summary);
-    console.log('  ✅ Order summary saved -> output/order-summary.txt');
+    console.log('  Order summary saved -> output/order-summary.txt');
 
+
+    
     // 9. Finish checkout
     console.log('Step 9: Completing checkout...');
     await page.click('#finish');
@@ -138,11 +131,11 @@ async function screenshot(page, name) {
     const confirmationText = await page.$eval('.complete-header', (el) =>
       el.textContent.trim()
     );
-    console.log(`  ✅ Checkout complete: "${confirmationText}"`);
+    console.log(`  Checkout complete: "${confirmationText}"`);
 
-    console.log('\n🎉 Full checkout flow completed successfully!');
+    console.log('\nFull checkout flow completed successfully!');
   } catch (err) {
-    console.error('❌ Error during automation:', err);
+    console.error('Error during automation:', err);
     await screenshot(page, 'error-state');
     process.exitCode = 1;
   } finally {

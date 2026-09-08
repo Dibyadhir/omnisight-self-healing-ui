@@ -11,7 +11,7 @@
  *      background) - a classic low-contrast bug.
  *   2. The order total gets pushed off the visible viewport using a
  *      large negative margin - a classic clipping/overflow bug.
- *
+ 
  * Usage:
  *   node inject_bug_and_capture.js
  */
@@ -20,7 +20,7 @@ const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
 
-const BASE_URL = 'https://www.saucedemo.com/';
+const BASE_URL = "http://localhost:5173/products";
 const CREDENTIALS = {
   username: 'standard_user',
   password: 'secret_sauce',
